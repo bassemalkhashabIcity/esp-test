@@ -1,0 +1,49 @@
+esphome:
+  name: test
+  friendly_name: test
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "IAWYDl/c/f1r8+iXgLpP/OhbumLzpv0x8xSlZoMIdT4="
+
+ota:
+  password: "8788e262f9f98ba1ef3a0e77baea5c7c"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Test Fallback Hotspot"
+    password: "vOPqCK2uuAMx"
+
+captive_portal:
+    
+# Define the pin configuration
+# output:
+#   - platform: gpio
+#     pin: GPIO23
+#     id: my_led
+
+# Define a simple toggle switch to turn the LED on and off
+switch:
+  - platform: gpio
+    name: "My LED"
+    id: my_switch
+    pin:
+      number: GPIO23
+      # inverted: true
+    on_turn_on:
+      - output.turn_on: my_led
+    on_turn_off:
+      - output.turn_off: my_led
